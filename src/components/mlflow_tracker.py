@@ -11,7 +11,10 @@ class MLflowTracker:
 
     def __init__(self):
 
+        # MLflow Tracking Database
         mlflow.set_tracking_uri("sqlite:///mlflow.db")
+
+        # Experiment Name
         mlflow.set_experiment("Travel Intelligence MLOps")
 
     def log_complete_model(
@@ -26,27 +29,20 @@ class MLflowTracker:
 
         with mlflow.start_run(run_name=model_name):
 
+            # ----------------------------
+            # Log Parameters
+            # ----------------------------
             if params:
                 mlflow.log_params(params)
 
+            # ----------------------------
+            # Log Metrics
+            # ----------------------------
             mlflow.log_metrics(metrics)
 
-            if isinstance(model, XGBRegressor):
-
-                logger.info("Logging XGBoost model...")
-
-                mlflow.xgboost.log_model(
-                    xgb_model=model,
-                    artifact_path="model"
-                )
-
-            else:
-
-                logger.info("Logging Scikit-Learn model...")
-
-                mlflow.sklearn.log_model(
-                    sk_model=model,
-                    artifact_path="model"
-                )
+            # ----------------------------
+            # TEMPORARILY DISABLE MODEL LOGGING
+            # ----------------------------
+            logger.info("Skipping model artifact logging.")
 
         logger.info(f"{model_name} logged successfully.")
