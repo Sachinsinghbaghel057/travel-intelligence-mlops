@@ -61,14 +61,16 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 sh '''
-                docker build -t travel-streamlit -f Dockerfile .
-                docker build -t travel-fastapi -f Dockerfile.api .
+                sudo docker build -t travel-streamlit -f Dockerfile .
+                sudo docker build -t travel-fastapi -f Dockerfile.api .
                 '''
             }
         }
+
     }
 
     post {
+
         success {
             echo 'Travel Intelligence MLOps Pipeline Completed Successfully'
         }
@@ -76,5 +78,7 @@ pipeline {
         failure {
             echo 'Pipeline Failed'
         }
+
     }
+
 }
