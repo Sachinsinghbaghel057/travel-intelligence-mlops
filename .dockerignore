@@ -1,18 +1,40 @@
-venv/
+# Python
 __pycache__/
 *.pyc
-.ipynb_checkpoints/
+*.pyo
+*.pyd
 
-notebooks/
-mlruns/
-artifacts/
-logs/
+# Virtual Environment
+venv/
+.env
 
-
-
+# Git
 .git/
 .gitignore
 
-.env
+# Notebook
+.ipynb_checkpoints/
 
-*.db
+# Logs
+logs/
+airflow/logs/
+
+# MLflow
+mlruns/
+
+# Artifacts
+artifacts/
+
+# Models
+models/
+
+# Data (optional if not needed during image build)
+data/
+
+# Docker
+Docker-compose.old.yml
+airflow/docker-compose.old.yml
+
+# OS
+.DS_Store
+Thumbs.db
