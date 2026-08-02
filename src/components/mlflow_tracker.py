@@ -11,10 +11,7 @@ class MLflowTracker:
 
     def __init__(self):
 
-        # SQLite Tracking Database
         mlflow.set_tracking_uri("sqlite:///mlflow.db")
-
-        # Create / Use Experiment
         mlflow.set_experiment("Travel Intelligence MLOps")
 
     def log_complete_model(
@@ -25,24 +22,14 @@ class MLflowTracker:
         params=None
     ):
 
-        with mlflow.start_run(run_name=model_name):
+        logger.info(f"Starting MLflow run for {model_name}")
 
-            # -------------------------------
-            # Parameters
-            # -------------------------------
+        with mlflow.start_run(run_name=model_name):
 
             if params:
                 mlflow.log_params(params)
 
-            # -------------------------------
-            # Metrics
-            # -------------------------------
-
             mlflow.log_metrics(metrics)
-
-            # -------------------------------
-            # Log Model
-            # -------------------------------
 
             if isinstance(model, XGBRegressor):
 
@@ -50,7 +37,7 @@ class MLflowTracker:
 
                 mlflow.xgboost.log_model(
                     xgb_model=model,
-                    name="model"
+                    artifact_path="model"
                 )
 
             else:
@@ -59,7 +46,7 @@ class MLflowTracker:
 
                 mlflow.sklearn.log_model(
                     sk_model=model,
-                    name="model"
+                    artifact_path="model"
                 )
 
-            logger.info(f"{model_name} logged successfully to MLflow.")
+        logger.info(f"{model_name} logged successfully.")
