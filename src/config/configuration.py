@@ -112,9 +112,8 @@ class Configuration:
 
                 selected_models=[
 
-                    "XGBoost",
-                    "Extra Trees",
-                    "Linear Regression"
+                    "Linear Regression",
+                    "Extra Trees"
 
                 ],
 
@@ -149,19 +148,20 @@ class Configuration:
 
                 selected_models=[
 
-                    "XGBoost",
-                    "Extra Trees",
-                    "Linear Regression"
+                    "Linear Regression",
+                    "Extra Trees"
 
                 ],
 
                 model_name="hotel_total_model"
 
             )
+
         else:
 
             raise ValueError(f"Unknown model type: {model_type}")
-        # ==========================================================
+
+    # ==========================================================
     # XGBoost Hyperparameter Tuning
     # ==========================================================
     def get_xgboost_param_grid(self):
@@ -187,8 +187,4 @@ class Configuration:
                 0.8
             ],
 
-            "colsample_bytree": [
-                0.8
-            ]
-
-        }
+            "colsample_bytree

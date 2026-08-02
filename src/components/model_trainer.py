@@ -46,9 +46,9 @@ class ModelTrainer:
 
             "Extra Trees":
                 ExtraTreesRegressor(
-                    n_estimators=200,
+                    n_estimators=50,
                     random_state=42,
-                    n_jobs=-1
+                    n_jobs=1
                 ),
 
             "XGBoost":
@@ -56,11 +56,11 @@ class ModelTrainer:
 
                     objective="reg:squarederror",
 
-                    n_estimators=300,
+                    n_estimators=100,
 
                     learning_rate=0.05,
 
-                    max_depth=8,
+                    max_depth=6,
 
                     subsample=0.8,
 
@@ -68,7 +68,7 @@ class ModelTrainer:
 
                     random_state=42,
 
-                    n_jobs=-1
+                    n_jobs=2
                 )
         }
 
