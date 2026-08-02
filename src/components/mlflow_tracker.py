@@ -25,24 +25,50 @@ class MLflowTracker:
         params=None
     ):
 
-        logger.info(f"Starting MLflow run for {model_name}")
+        logger.info("=" * 60)
+        logger.info(f"Starting MLflow Run : {model_name}")
+        logger.info("=" * 60)
 
         with mlflow.start_run(run_name=model_name):
 
-            # ----------------------------
-            # Log Parameters
-            # ----------------------------
+            # ---------------------------------------
+            # Parameters
+            # ---------------------------------------
             if params:
                 mlflow.log_params(params)
+                logger.info("Parameters logged.")
 
-            # ----------------------------
-            # Log Metrics
-            # ----------------------------
+            # ---------------------------------------
+            # Metrics
+            # ---------------------------------------
             mlflow.log_metrics(metrics)
+            logger.info("Metrics logged.")
 
-            # ----------------------------
-            # TEMPORARILY DISABLE MODEL LOGGING
-            # ----------------------------
-            logger.info("Skipping model artifact logging.")
+            # ---------------------------------------
+            # Model Artifact
+            # ---------------------------------------
+            #
+            # Disabled for Jenkins because the Docker
+            # container has limited RAM.
+            #
+            # Enable this after increasing Docker memory.
+            #
+            # if isinstance(model, XGBRegressor):
+            #
+            #     mlflow.xgboost.log_model(
+            #         xgb_model=model,
+            #         name="model"
+            #     )
+            #
+            # else:
+            #
+            #     mlflow.sklearn.log_model(
+            #         sk_model=model,
+            #         name="model"
+            #     )
 
-        logger.info(f"{model_name} logged successfully.")
+            logger.info("Model artifact logging skipped.")
+
+        logger.info("=" * 60)
+        logger.info("MLflow Run Completed Successfully")
+        logger.info("=" * 60)
