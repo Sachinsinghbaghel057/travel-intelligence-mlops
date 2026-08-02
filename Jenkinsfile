@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_DIR = "/var/jenkins_home/workspace/travel-intelligence-pipeline"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -9,29 +13,68 @@ pipeline {
             }
         }
 
-        stage('Project Info') {
+        stage('Show Workspace') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+                sh '''
+                pwd
+                ls -la
+                '''
             }
         }
 
         stage('Python Version') {
             steps {
-                sh 'python3 --version || true'
+                sh 'python3 --version'
             }
         }
 
-        stage('Docker Version') {
+        stage('Create Virtual Environment') {
             steps {
-                sh 'docker --version'
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                python -m pip install --upgrade pip
+                '''
             }
         }
 
-        stage('Build Completed') {
+        stage('Install Requirements') {
             steps {
-                echo 'Travel Intelligence MLOps CI Pipeline Completed Successfully'
+                sh '''
+                . venv/bin/activate
+                pip install -r requirements/common.txt
+                pip install -r requirements/api.txt
+                pip install -r requirements/streamlit.txt
+                '''
             }
+        }
+
+        stage('Run ML Pipeline') {
+            steps {
+                sh '''
+                . venv/bin/activate
+                python -m src.pipeline.main_pipeline
+                '''
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                sh '''
+                docker build -t travel-streamlit -f Dockerfile .
+                docker build -t travel-fastapi -f Dockerfile.api .
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Travel Intelligence MLOps Pipeline Completed Successfully'
+        }
+
+        failure {
+            echo 'Pipeline Failed'
         }
     }
 }
