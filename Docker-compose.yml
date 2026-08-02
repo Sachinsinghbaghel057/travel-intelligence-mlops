@@ -49,7 +49,7 @@ services:
       --lastname Singh
       --role Admin
       --email admin@example.com
-      --password admin
+      --password admin || true
       "
 
   airflow-webserver:
@@ -141,6 +141,33 @@ services:
 
     ports:
       - "8501:8501"
+
+    restart: unless-stopped
+
+  mlflow:
+
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+
+    container_name: travel-mlflow
+
+    depends_on:
+      - postgres
+
+    working_dir: /app
+
+    volumes:
+      - ./:/app
+
+    ports:
+      - "5000:5000"
+
+    command: >
+      mlflow ui
+      --backend-store-uri sqlite:///mlflow.db
+      --host 0.0.0.0
+      --port 5000
 
     restart: unless-stopped
 
