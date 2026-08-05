@@ -46,7 +46,11 @@ class ModelTrainer:
 
             "Extra Trees":
                 ExtraTreesRegressor(
-                    n_estimators=50,
+                    n_estimators=100,
+                    max_depth=20,
+                    min_samples_split=10,
+                    min_samples_leaf=5,
+                    max_features="sqrt",
                     random_state=42,
                     n_jobs=1
                 ),

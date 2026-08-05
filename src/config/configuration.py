@@ -108,7 +108,7 @@ class Configuration:
 
                 selected_models=[
                     "Linear Regression",
-                    "Extra Trees"
+                    "XGBoost"
                 ],
 
                 model_name="flight_price_model"

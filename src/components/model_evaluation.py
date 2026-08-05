@@ -33,6 +33,17 @@ class ModelEvaluation:
             best_model = None
             best_r2 = float("-inf")
 
+            # Preferred order if scores are very close
+            model_priority = [
+                "XGBoost",
+                "Gradient Boosting",
+                "Extra Trees",
+                "Ridge Regression",
+                "Linear Regression",
+                "Decision Tree",
+                "Lasso Regression"
+            ]
+
             for model_name, model in trained_models.items():
 
                 logger.info(f"Evaluating {model_name}")
@@ -63,16 +74,28 @@ class ModelEvaluation:
                 }
 
                 logger.info(
-                    f"{model_name} | "
-                    f"R2={r2:.4f} | "
-                    f"RMSE={rmse:.4f} | "
+                    f"{model_name:<25}"
+                    f"R2={r2:.4f}   "
+                    f"RMSE={rmse:.4f}   "
                     f"MAE={mae:.4f}"
                 )
 
+                # Select highest R²
                 if r2 > best_r2:
                     best_r2 = r2
                     best_model_name = model_name
                     best_model = model
+
+                # If R² difference is tiny (<=0.001), prefer production-friendly model
+                elif abs(r2 - best_r2) <= 0.001:
+
+                    current_priority = model_priority.index(best_model_name)
+                    new_priority = model_priority.index(model_name)
+
+                    if new_priority < current_priority:
+                        best_model_name = model_name
+                        best_model = model
+                        best_r2 = r2
 
             logger.info("=" * 60)
             logger.info(f"Best Model : {best_model_name}")
