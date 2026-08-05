@@ -1,19 +1,17 @@
+import os
+
 import requests
 
-# ==========================================================
-# FastAPI Base URL
-# ==========================================================
-
-# Local Development
-BASE_URL = "http://127.0.0.1:8000"
-
-# Docker (Uncomment when using Docker Compose)
-# BASE_URL = "http://fastapi:8000"
+from dotenv import load_dotenv
 
 
-# ==========================================================
-# Flight Prediction
-# ==========================================================
+load_dotenv()
+
+BASE_URL = os.getenv(
+    "API_URL",
+    "http://fastapi:8000"
+)
+
 
 def predict_flight(data: dict):
 
@@ -26,10 +24,6 @@ def predict_flight(data: dict):
 
     return response.json()
 
-
-# ==========================================================
-# Hotel Prediction
-# ==========================================================
 
 def predict_hotel(data: dict):
 
