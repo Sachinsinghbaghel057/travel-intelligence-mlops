@@ -23,10 +23,9 @@ airflow/logs/
 mlruns/
 
 # Artifacts
-artifacts/
+
 
 # Models
-models/
 
 # Data (optional if not needed during image build)
 
