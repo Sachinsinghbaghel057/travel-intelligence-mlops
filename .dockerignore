@@ -29,7 +29,7 @@ artifacts/
 models/
 
 # Data (optional if not needed during image build)
-data/
+
 
 # Docker
 Docker-compose.old.yml
