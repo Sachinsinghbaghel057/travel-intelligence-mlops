@@ -416,37 +416,6 @@ docker compose up --build
 
 ---
 
-# 📷 Project Screenshots
-
-## Streamlit Dashboard
-
-*(Add Screenshot Here)*
-
----
-
-## FastAPI Swagger UI
-
-*(Add Screenshot Here)*
-
----
-
-## Apache Airflow
-
-*(Add Screenshot Here)*
-
----
-
-## MLflow Experiment Tracking
-
-*(Add Screenshot Here)*
-
----
-
-## Jenkins CI/CD
-
-*(Add Screenshot Here)*
-
----
 
 # 🚀 Future Enhancements
 
@@ -465,6 +434,6 @@ docker compose up --build
 **Sachin Singh**
 
 - GitHub: https://github.com/Sachinsinghbaghel057
-- LinkedIn: https://linkedin.com/in/sachin-singh-data-analyst
+- LinkedIn: www.linkedin.com/in/sachin-singh-ds](https://www.linkedin.com/in/sachin-singh-ds
 
 If you found this project useful, consider giving it a ⭐ on GitHub.
